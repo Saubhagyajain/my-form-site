@@ -21,19 +21,17 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
       width: 100%; 
       max-width: 500px; 
+      text-align: center;
     }
-    h2 { 
-      text-align: center; 
-      margin-top: 0; 
-    }
+    h2 { margin-top: 0; }
     input, button { 
       width: 100%; 
       padding: 12px; 
       margin: 8px 0; 
       border-radius: 8px; 
       border: 1px solid #ddd; 
-      box-sizing: border-box; 
       font-size: 16px; 
+      box-sizing: border-box; 
     }
     button { 
       background: #0b63d6; 
@@ -43,11 +41,12 @@
       cursor: pointer; 
       transition: background 0.3s; 
     }
-    button:hover { 
-      background: #094abf; 
-    }
-    button:active { 
-      transform: translateY(1px); 
+    button:hover { background: #094abf; }
+    button:active { transform: translateY(1px); }
+    .success { 
+      color: green; 
+      font-weight: bold; 
+      margin-top: 15px; 
     }
     footer { 
       text-align: center; 
@@ -60,22 +59,36 @@
 <body>
   <div class="container">
     <h2>Fill Out This Form</h2>
-    <form action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
+    <form id="myForm" action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="text" name="class" placeholder="Class / Grade" required>
       <input type="number" name="age" placeholder="Age" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
-
-      <!-- Redirect to thankyou page -->
-      <input type="hidden" name="_next" value="https://SaubhagyaJain.github.io/my-form-site/thankyou.html">
-
+      
+      <!-- Hidden _next removed because we stay on same page -->
       <button type="submit">Submit</button>
     </form>
+    <div class="success" id="successMessage" style="display:none;">
+      ✅ Thank you! Your form has been submitted successfully.
+    </div>
   </div>
 
   <footer>
     <p>© Saubhagya Jain. All rights reserved.</p>
   </footer>
+
+  <script>
+    const form = document.getElementById('myForm');
+    const success = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e){
+      // Let formsubmit send the email
+      setTimeout(() => {
+        form.style.display = 'none'; // hide form
+        success.style.display = 'block'; // show success message
+      }, 100); // short delay to allow formsubmit to process
+    });
+  </script>
 </body>
 </html>
