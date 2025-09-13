@@ -3,154 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Info Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef6fb;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    h2 { margin-top: 0; }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-    button {
-      padding: 10px 16px;
-      margin: 6px 4px 0 0;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #0b63d6;
-      color: white;
-      font-weight: bold;
-    }
-    button:active { transform: translateY(1px); }
-    .actions { margin-top: 10px; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background: #f1f8ff;
-    }
-    footer {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+  <title>Form Submission</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Fill Your Details</h2>
-    <form id="infoForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="text" id="class" placeholder="Class / Grade" required>
-      <input type="number" id="age" placeholder="Age" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="tel" id="phone" placeholder="Phone Number" required>
+  <div class="form-container">
+    <h2>Fill Out This Form</h2>
+    <form id="userForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="class">Class:</label>
+      <input type="text" id="class" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="phone">Phone No:</label>
+      <input type="tel" id="phone" required>
+
       <button type="submit">Submit</button>
     </form>
-
-    <div class="actions">
-      <button onclick="exportCSV()">Export CSV</button>
-      <button onclick="clearData()">Clear All</button>
-    </div>
-
-    <table id="dataTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Class</th>
-          <th>Age</th>
-          <th>Email</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <footer>
-      © 2025 Saubhagya Jain. All Rights Reserved.
-    </footer>
   </div>
 
+  <footer>
+    <p>© Saubhagya Jain. All rights reserved.</p>
+  </footer>
+
   <script>
-    const form = document.getElementById("infoForm");
-    const tableBody = document.querySelector("#dataTable tbody");
-    const STORAGE_KEY = "formData";
+    document.getElementById("userForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-    function loadData() {
-      tableBody.innerHTML = "";
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      data.forEach(row => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${row.name}</td><td>${row.class}</td><td>${row.age}</td><td>${row.email}</td><td>${row.phone}</td>`;
-        tableBody.appendChild(tr);
-      });
-    }
+      // Collect data
+      const name = document.getElementById("name").value;
+      const className = document.getElementById("class").value;
+      const age = document.getElementById("age").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const entry = {
-        name: document.getElementById("name").value,
-        class: document.getElementById("class").value,
-        age: document.getElementById("age").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value
-      };
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      data.push(entry);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      form.reset();
-      loadData();
+      // Store in localStorage (only on user's browser)
+      localStorage.setItem("formData", JSON.stringify({name, className, age, email, phone}));
+
+      // Redirect to thank you page
+      window.location.href = "thankyou.html";
     });
-
-    function exportCSV() {
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      if (data.length === 0) {
-        alert("No data to export!");
-        return;
-      }
-      const header = Object.keys(data[0]).join(",");
-      const rows = data.map(obj => Object.values(obj).join(","));
-      const csv = [header, ...rows].join("\n");
-      const blob = new Blob([csv], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "form_data.csv";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function clearData() {
-      if (confirm("Are you sure you want to delete all data?")) {
-        localStorage.removeItem(STORAGE_KEY);
-        loadData();
-      }
-    }
-
-    loadData();
   </script>
 </body>
 </html>
