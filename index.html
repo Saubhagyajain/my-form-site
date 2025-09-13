@@ -9,47 +9,15 @@
 <body>
   <div class="form-container">
     <h2>Fill Out This Form</h2>
-    <form id="userForm">
-      <label for="name">Name:</label>
-      <input type="text" id="name" required>
-
-      <label for="class">Class:</label>
-      <input type="text" id="class" required>
-
-      <label for="age">Age:</label>
-      <input type="number" id="age" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" required>
-
-      <label for="phone">Phone No:</label>
-      <input type="tel" id="phone" required>
-
-      <button type="submit">Submit</button>
-    </form>
+    <!-- Google Form Embed -->
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScVQ608lFZRqBnBzTv21aV3qtwPVzYEERhkFQHvDW-bEbKqzQ/viewform?embedded=true"
+            width="100%" height="915" frameborder="0" marginheight="0" marginwidth="0">
+      Loading…
+    </iframe>
   </div>
 
   <footer>
     <p>© Saubhagya Jain. All rights reserved.</p>
   </footer>
-
-  <script>
-    document.getElementById("userForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      // Collect data
-      const name = document.getElementById("name").value;
-      const className = document.getElementById("class").value;
-      const age = document.getElementById("age").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-
-      // Store in localStorage (only on user's browser)
-      localStorage.setItem("formData", JSON.stringify({name, className, age, email, phone}));
-
-      // Redirect to thank you page
-      window.location.href = "thankyou.html";
-    });
-  </script>
 </body>
 </html>
