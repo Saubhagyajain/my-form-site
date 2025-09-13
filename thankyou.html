@@ -4,34 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank You</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef6fb; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .message { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+  </style>
 </head>
 <body>
-  <div class="thankyou-container">
-    <h2 id="thankMsg"></h2>
-    <button id="downloadBtn">Download My Details</button>
-    <a href="index.html" class="back-link">Go Back</a>
+  <div class="message">
+    <h2>Thank You!</h2>
+    <p>Your form has been submitted successfully.</p>
+    <a href="index.html">Go Back</a>
   </div>
-
-  <script>
-    // Load data from localStorage
-    const data = JSON.parse(localStorage.getItem("formData"));
-    if (data) {
-      document.getElementById("thankMsg").textContent =
-        `Thank you, ${data.name}! Your form was submitted successfully.`;
-    }
-
-    // Download details as .txt file
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      if (data) {
-        const content = `Name: ${data.name}\nClass: ${data.className}\nAge: ${data.age}\nEmail: ${data.email}\nPhone: ${data.phone}`;
-        const blob = new Blob([content], { type: "text/plain" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "MyDetails.txt";
-        link.click();
-      }
-    });
-  </script>
 </body>
 </html>
