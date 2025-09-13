@@ -3,36 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Submission</title>
+  <title>Info Form</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef6fb;
-      padding: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-    }
-    button {
-      background: #0b63d6;
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
+    body { font-family: Arial, sans-serif; background: #eef6fb; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; }
+    input, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; }
+    button { background: #0b63d6; color: white; font-weight: bold; border: none; cursor: pointer; }
     button:active { transform: translateY(1px); }
     footer { text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
   </style>
@@ -40,12 +17,18 @@
 <body>
   <div class="container">
     <h2>Fill Out This Form</h2>
-    <form id="userForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="text" id="class" placeholder="Class / Grade" required>
-      <input type="number" id="age" placeholder="Age" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="tel" id="phone" placeholder="Phone Number" required>
+    <form action="https://formsubmit.co/Shobhagyajain2012@gmail.com" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="class" placeholder="Class / Grade" required>
+      <input type="number" name="age" placeholder="Age" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+
+      <!-- Redirect to thank you page after submission -->
+      <input type="hidden" name="_next" value="thankyou.html">
+      <!-- Disable captcha -->
+      <input type="hidden" name="_captcha" value="false">
+
       <button type="submit">Submit</button>
     </form>
   </div>
@@ -53,52 +36,5 @@
   <footer>
     <p>© Saubhagya Jain. All rights reserved.</p>
   </footer>
-
-  <!-- Firebase ES Module SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAit0iewT7vpwjE60yOmEwWMNTqJLRWnTA",
-      authDomain: "myformdata-41513.firebaseapp.com",
-      projectId: "myformdata-41513",
-      storageBucket: "myformdata-41513.firebasestorage.app",
-      messagingSenderId: "227302930513",
-      appId: "1:227302930513:web:f9cebffa617a86579de070"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Form submission
-    const form = document.getElementById("userForm");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const className = document.getElementById("class").value;
-      const age = document.getElementById("age").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-
-      try {
-        await addDoc(collection(db, "submissions"), {
-          name,
-          class: className,
-          age,
-          email,
-          phone,
-          timestamp: serverTimestamp()
-        });
-        alert("Form submitted successfully!");
-        form.reset();
-      } catch (error) {
-        alert("Error: " + error);
-      }
-    });
-  </script>
 </body>
 </html>
