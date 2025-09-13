@@ -9,8 +9,7 @@
       font-family: Arial, sans-serif; 
       background: #eef6fb; 
       display: flex; 
-      justify-content: center; 
-      align-items: center; 
+      flex-direction: column;
       min-height: 100vh; 
       margin: 0; 
     }
@@ -22,6 +21,7 @@
       width: 100%; 
       max-width: 500px; 
       text-align: center;
+      margin: 40px auto 0 auto;
     }
     h2 { margin-top: 0; }
     input, button { 
@@ -50,9 +50,11 @@
     }
     footer { 
       text-align: center; 
-      margin-top: 15px; 
+      margin-top: auto; 
+      padding: 15px 0;
       font-size: 12px; 
       color: #666; 
+      background: #eef6fb;
     }
   </style>
 </head>
@@ -65,17 +67,17 @@
       <input type="number" name="age" placeholder="Age" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
-      
-      <!-- Hidden _next removed because we stay on same page -->
       <button type="submit">Submit</button>
     </form>
+
     <div class="success" id="successMessage" style="display:none;">
-      ✅ Thank you! Your form has been submitted successfully.
+      ✅ Thanks! The form was submitted successfully. <br>
+      Return to original site: <a href="https://SaubhagyaJain.github.io/my-form-site/" target="_blank">https://SaubhagyaJain.github.io/my-form-site/</a>
     </div>
   </div>
 
   <footer>
-    <p>© Saubhagya Jain. All rights reserved.</p>
+    © Saubhagya Jain. All rights reserved.
   </footer>
 
   <script>
@@ -83,11 +85,11 @@
     const success = document.getElementById('successMessage');
 
     form.addEventListener('submit', function(e){
-      // Let formsubmit send the email
+      // Let Formsubmit send the email
       setTimeout(() => {
-        form.style.display = 'none'; // hide form
-        success.style.display = 'block'; // show success message
-      }, 100); // short delay to allow formsubmit to process
+        form.style.display = 'none';       // hide form
+        success.style.display = 'block';   // show success message
+      }, 100); // short delay
     });
   </script>
 </body>
