@@ -7,7 +7,7 @@
   <style>
     body { font-family: Arial, sans-serif; background: #eef6fb; padding: 20px; }
     .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; }
+    h2 { margin-top: 0; text-align: center; }
     input, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
     button { background: #0b63d6; color: white; font-weight: bold; border: none; cursor: pointer; }
     button:active { transform: translateY(1px); }
@@ -24,7 +24,7 @@
       <input type="email" name="email" placeholder="Email" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
 
-      <!-- Redirect to thank you page after submission -->
+      <!-- Optional: redirect after submission -->
       <input type="hidden" name="_next" value="thankyou.html">
 
       <button type="submit">Submit</button>
