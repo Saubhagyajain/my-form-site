@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="thankyou-container">
+    <h2 id="thankMsg"></h2>
+    <button id="downloadBtn">Download My Details</button>
+    <a href="index.html" class="back-link">Go Back</a>
+  </div>
+
+  <script>
+    // Load data from localStorage
+    const data = JSON.parse(localStorage.getItem("formData"));
+    if (data) {
+      document.getElementById("thankMsg").textContent =
+        `Thank you, ${data.name}! Your form was submitted successfully.`;
+    }
+
+    // Download details as .txt file
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      if (data) {
+        const content = `Name: ${data.name}\nClass: ${data.className}\nAge: ${data.age}\nEmail: ${data.email}\nPhone: ${data.phone}`;
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "MyDetails.txt";
+        link.click();
+      }
+    });
+  </script>
+</body>
+</html>
