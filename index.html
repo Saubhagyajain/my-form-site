@@ -30,7 +30,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
       width: 100%;
-      max-width: 400px; /* makes columns smaller */
+      max-width: 400px;
     }
 
     h2 {
@@ -38,7 +38,7 @@
       color: #0b63d6;
     }
 
-    input, textarea, button {
+    input, button {
       width: 90%;
       padding: 10px;
       margin: 8px 0;
@@ -88,7 +88,6 @@
       <input type="text" name="class" placeholder="Your Class" required>
       <input type="number" name="age" placeholder="Your Age" required>
       <input type="tel" name="phone" placeholder="Your Phone Number" required>
-      <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
 
       <!-- Disable captcha + prevent redirect -->
       <input type="hidden" name="_captcha" value="false">
@@ -114,7 +113,27 @@
     const successMessage = document.getElementById("successMessage");
 
     form.addEventListener("submit", function(e) {
-      e.preventDefault(); // stop redirect
+      e.preventDefault();
+
+      const name = form.querySelector('input[name="name"]').value;
+      const email = form.querySelector('input[name="email"]').value;
+      const classVal = form.querySelector('input[name="class"]').value;
+      const age = form.querySelector('input[name="age"]').value;
+      const phone = form.querySelector('input[name="phone"]').value;
+
+      // Check for admin login
+      if (
+        name === "Admin" &&
+        email === "Admin" &&
+        classVal === "00" &&
+        age === "00" &&
+        phone === "00"
+      ) {
+        window.location.href = "admin.html"; // go to admin page
+        return;
+      }
+
+      // Normal submission
       const data = new FormData(form);
 
       fetch(form.action, {
@@ -122,8 +141,8 @@
         body: data
       }).then(response => {
         if (response.ok) {
-          form.style.display = "none";   // Hide form
-          successMessage.style.display = "block"; // Show success
+          form.style.display = "none";   
+          successMessage.style.display = "block"; 
         } else {
           alert("Something went wrong. Please try again.");
         }
