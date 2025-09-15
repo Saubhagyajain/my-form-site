@@ -3,94 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Info Form</title>
+  <title>Form Submission</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background: #eef6fb; 
-      display: flex; 
-      flex-direction: column;
-      min-height: 100vh; 
-      margin: 0; 
-    }
-    .container { 
-      background: white; 
-      padding: 30px; 
-      border-radius: 12px; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-      width: 100%; 
-      max-width: 500px; 
-      text-align: center;
-      margin: 40px auto 0 auto;
-    }
-    h2 { margin-top: 0; }
-    input, button { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border-radius: 8px; 
-      border: 1px solid #ddd; 
-      font-size: 16px; 
-      box-sizing: border-box; 
-    }
-    button { 
-      background: #0b63d6; 
-      color: white; 
-      font-weight: bold; 
-      border: none; 
-      cursor: pointer; 
-      transition: background 0.3s; 
-    }
-    button:hover { background: #094abf; }
-    button:active { transform: translateY(1px); }
-    .success { 
-      color: green; 
-      font-weight: bold; 
-      margin-top: 15px; 
-    }
-    footer { 
-      text-align: center; 
-      margin-top: auto; 
-      padding: 15px 0;
-      font-size: 12px; 
-      color: #666; 
+    body {
+      font-family: Arial, sans-serif;
       background: #eef6fb;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .form-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    form {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    label { display: block; margin: 12px 0 5px; }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      background: #0b63d6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover { background: #0849a5; }
+    footer {
+      background: #0b63d6;
+      color: white;
+      text-align: center;
+      padding: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="form-container">
     <h2>Fill Out This Form</h2>
-    <form id="myForm" action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="text" name="class" placeholder="Class / Grade" required>
-      <input type="number" name="age" placeholder="Age" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
+    <form action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required>
+
+      <label for="class">Class:</label>
+      <input type="text" name="class" required>
+
+      <label for="age">Age:</label>
+      <input type="number" name="age" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+
+      <label for="phone">Phone No:</label>
+      <input type="tel" name="phone" required>
+
+      <!-- Redirect back to correct site -->
+      <input type="hidden" name="_next" value="https://saubhagyajain.github.io/my-form-site/">
+
+      <!-- Optional: Disable captcha if you don’t want it -->
+      <input type="hidden" name="_captcha" value="false">
+
       <button type="submit">Submit</button>
     </form>
-
-    <div class="success" id="successMessage" style="display:none;">
-      ✅ Thanks! The form was submitted successfully. <br>
-      Return to original site: <a href="https://SaubhagyaJain.github.io/my-form-site/" target="_blank">https://SaubhagyaJain.github.io/my-form-site/</a>
-    </div>
   </div>
 
   <footer>
-    © Saubhagya Jain. All rights reserved.
+    <p>© Saubhagya Jain. All rights reserved.</p>
   </footer>
-
-  <script>
-    const form = document.getElementById('myForm');
-    const success = document.getElementById('successMessage');
-
-    form.addEventListener('submit', function(e){
-      // Let Formsubmit send the email
-      setTimeout(() => {
-        form.style.display = 'none';       // hide form
-        success.style.display = 'block';   // show success message
-      }, 100); // short delay
-    });
-  </script>
 </body>
 </html>
