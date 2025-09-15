@@ -8,51 +8,39 @@
     body {
       font-family: Arial, sans-serif;
       background: #eef6fb;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .form-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       padding: 20px;
     }
-    form {
+    .form-container {
+      max-width: 600px;
+      margin: auto;
       background: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
     }
-    label { display: block; margin: 12px 0 5px; }
+    h2 { margin-top: 0; }
     input {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
     button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 12px;
-      background: #0b63d6;
-      color: white;
+      padding: 10px 16px;
+      margin: 6px 4px 0 0;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover { background: #0849a5; }
-    footer {
       background: #0b63d6;
       color: white;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 15px;
       text-align: center;
-      padding: 10px;
+      font-size: 12px;
+      color: #666;
     }
   </style>
 </head>
@@ -60,33 +48,30 @@
   <div class="form-container">
     <h2>Fill Out This Form</h2>
     <form action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required>
-
-      <label for="class">Class:</label>
-      <input type="text" name="class" required>
-
-      <label for="age">Age:</label>
-      <input type="number" name="age" required>
-
-      <label for="email">Email:</label>
-      <input type="email" name="email" required>
-
-      <label for="phone">Phone No:</label>
-      <input type="tel" name="phone" required>
-
-      <!-- Redirect back to correct site -->
+      <!-- Hidden redirect link -->
       <input type="hidden" name="_next" value="https://saubhagyajain.github.io/my-form-site/">
 
-      <!-- Optional: Disable captcha if you don’t want it -->
-      <input type="hidden" name="_captcha" value="false">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="class">Class:</label>
+      <input type="text" name="class" id="class" required>
+
+      <label for="age">Age:</label>
+      <input type="number" name="age" id="age" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="phone">Phone No:</label>
+      <input type="tel" name="phone" id="phone" required>
 
       <button type="submit">Submit</button>
     </form>
   </div>
 
   <footer>
-    <p>© Saubhagya Jain. All rights reserved.</p>
+    <p>© 2025 Saubhagya Jain. All rights reserved.</p>
   </footer>
 </body>
 </html>
