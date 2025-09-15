@@ -3,75 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Submission</title>
+  <title>My Form Site</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #eef6fb;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
     }
-    .form-container {
-      max-width: 600px;
-      margin: auto;
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
       background: white;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
     }
-    h2 { margin-top: 0; }
-    input {
+    h2 {
+      text-align: center;
+      color: #0b63d6;
+    }
+    input, textarea, button {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 14px;
     }
     button {
-      padding: 10px 16px;
-      margin: 6px 4px 0 0;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
       background: #0b63d6;
       color: white;
-      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #084a9b;
+    }
+    .success {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .success h2 {
+      color: green;
     }
     footer {
-      margin-top: 15px;
       text-align: center;
-      font-size: 12px;
-      color: #666;
+      padding: 10px;
+      background: #f1f1f1;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    footer a {
+      color: #0b63d6;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Fill Out This Form</h2>
-    <form action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
-      <!-- Hidden redirect link -->
-      <input type="hidden" name="_next" value="https://saubhagyajain.github.io/my-form-site/">
+  <div class="container">
+    <!-- Form Section -->
+    <form id="contactForm" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+      <h2>Contact Form</h2>
+      
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
 
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" required>
+      <!-- Disable captcha -->
+      <input type="hidden" name="_captcha" value="false">
+      <!-- Prevent redirect -->
+      <input type="hidden" name="_next" value="">
 
-      <label for="class">Class:</label>
-      <input type="text" name="class" id="class" required>
-
-      <label for="age">Age:</label>
-      <input type="number" name="age" id="age" required>
-
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required>
-
-      <label for="phone">Phone No:</label>
-      <input type="tel" name="phone" id="phone" required>
-
-      <button type="submit">Submit</button>
+      <button type="submit">Send</button>
     </form>
+
+    <!-- Success Message -->
+    <div class="success" id="successMessage">
+      <h2>✅ Thank You!</h2>
+      <p>Your form has been submitted successfully.</p>
+      <a href="index.html">Submit Another Response</a>
+    </div>
   </div>
 
   <footer>
-    <p>© 2025 Saubhagya Jain. All rights reserved.</p>
+    © Saubhagya Jain. All rights reserved. | 
+    <a class="links" href="https://saubhagyajain.github.io/my-form-site/">Return to original site</a>
   </footer>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // Stop normal redirect
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = "none"; // Hide form
+          successMessage.style.display = "block"; // Show success
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      }).catch(() => alert("Error submitting form!"));
+    });
+  </script>
 </body>
 </html>
