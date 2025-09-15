@@ -13,45 +13,41 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      align-items: center;
     }
 
     .form-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-    }
-
-    form {
+      padding: 30px;
+      margin-top: 50px;
       background: white;
-      padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
       width: 100%;
       max-width: 400px;
     }
 
     h2 {
-      margin-bottom: 20px;
+      text-align: center;
       color: #0b63d6;
+      margin-bottom: 20px;
     }
 
     input, button {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 14px;
+      box-sizing: border-box;
     }
 
     button {
       background: #0b63d6;
       color: white;
       cursor: pointer;
-      transition: background 0.3s ease;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
     button:hover {
@@ -60,52 +56,48 @@
 
     .success {
       display: none;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
-      max-width: 400px;
+      padding: 20px;
+      background: #d4edda;
+      border-radius: 12px;
+      margin-top: 10px;
+      color: #155724;
+      font-weight: bold;
     }
 
     footer {
       text-align: center;
       padding: 15px;
-      background: #f0f0f0;
-      font-size: 14px;
       margin-top: auto;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <!-- Contact Form -->
-    <form id="contactForm" action="https://formsubmit.co/84728c2a0c89cf02dc365c5ec3c146bb" method="POST">
+    <form id="contactForm" action="https://formspree.io/f/xovnzlpl" method="POST">
       <h2>Contact Form</h2>
 
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="text" name="class" placeholder="Your Class" required>
-      <input type="number" name="age" placeholder="Your Age" required>
-      <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="class" placeholder="Class" required>
+      <input type="number" name="age" placeholder="Age" required>
+      <input type="tel" name="phone" placeholder="Phone" required>
 
-      <!-- Disable captcha + prevent redirect -->
+      <!-- Disable captcha -->
       <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="">
 
       <button type="submit">Submit</button>
     </form>
 
-    <!-- Success Message -->
     <div class="success" id="successMessage">
-      <h2>✅ Thank You!</h2>
-      <p>Your form has been submitted successfully.</p>
-      <a href="index.html">Submit Another Response</a>
+      ✅ Form submitted successfully!
     </div>
   </div>
 
   <footer>
-    <p>© Saubhagya Jain. All rights reserved.</p>
+    © Saubhagya Jain. All rights reserved.
   </footer>
 
   <script>
@@ -121,7 +113,7 @@
       const age = form.querySelector('input[name="age"]').value;
       const phone = form.querySelector('input[name="phone"]').value;
 
-      // Check for admin login
+      // Admin login
       if (
         name === "Admin" &&
         email === "Admin@gmail.com" &&
@@ -129,20 +121,21 @@
         age === "00" &&
         phone === "00"
       ) {
-        window.location.href = "admin.html"; // go to admin page
+        window.location.href = "admin.html";
         return;
       }
 
-      // Normal submission
+      // Normal submission via Formspree
       const data = new FormData(form);
 
       fetch(form.action, {
         method: "POST",
-        body: data
+        body: data,
+        headers: { 'Accept': 'application/json' }
       }).then(response => {
         if (response.ok) {
-          form.style.display = "none";   
-          successMessage.style.display = "block"; 
+          form.style.display = "none";
+          successMessage.style.display = "block";
         } else {
           alert("Something went wrong. Please try again.");
         }
